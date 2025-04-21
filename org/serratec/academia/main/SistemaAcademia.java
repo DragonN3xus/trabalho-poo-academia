@@ -1,5 +1,10 @@
 package org.serratec.academia.main;
 
-public class SistemaAcademia {
+import org.serratec.academia.servicos.Login;
 
+public class SistemaAcademia {
+	public static void main(String[] args) {
+		Login login = new Login();
+		login.realizarLogin();
+	}
 }
