@@ -55,7 +55,7 @@ public class MenuAluno implements Menu {
         System.out.println("CPF: " + aluno.getCpf());
         System.out.println("Data de Matrícula: " + aluno.getDataMatricula());
         System.out.println("\n==== Plano Contratado ====");
-        System.out.println("Plano: " + aluno.getPlano().getDescricao());
+        System.out.println("Plano: " + aluno.getPlano());
         System.out.println("Valor: R$ " + aluno.getPlano().getValor());
         
         if (aluno.getPersonalContratado() != null) {
