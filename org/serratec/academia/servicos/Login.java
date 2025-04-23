@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.serratec.academia.especial.Cargo;
+import org.serratec.academia.especial.Modalidade;
+import org.serratec.academia.especial.Periodo;
 import org.serratec.academia.especial.Plano;
 import org.serratec.academia.modelo.Aluno;
 import org.serratec.academia.modelo.Funcionario;
@@ -22,9 +24,10 @@ public class Login {
 	LocalDate data = LocalDate.parse("2025-12-04");
 	private static List<Pessoa> pessoas = new ArrayList<>();
 	
+	Plano anual = new Plano(Periodo.ANUAL, List.of(Modalidade.MUSCULACAO, Modalidade.BOXE), 4000);
 	Funcionario admin = new Funcionario("admin", "12345678910", "1234", Cargo.GERENTE);
 	Personal personal = new Personal("Claudio", "32345678910", "1234", "bag", "321");
-	Pessoa aluno = new Aluno("Bernardo", "22345678910", "555",  data, Plano.ANUAL_TOTAL, personal);
+	Pessoa aluno = new Aluno("Bernardo", "22345678910", "555",  data, anual, personal);
 			
 
 
@@ -70,7 +73,7 @@ public class Login {
 			}
 
 		}
-		
+
 	}
 
 }

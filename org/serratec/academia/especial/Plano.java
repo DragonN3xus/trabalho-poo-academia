@@ -1,30 +1,54 @@
 package org.serratec.academia.especial;
 
-public enum Plano {
-    MENSAL_TOTAL("Plano Mensal", 190.0),
-    TRIMESTRAL_TOTAL("Plano Trimestral", 520.0),
-    SEMESTRAL_TOTAL("Plano Semestral", 950.0),
-    ANUAL_TOTAL("Plano Anual", 1750.0);
-	  
-    private final String descricao;
-    private final double valor;
-    
-    Plano(String descricao, double valor) {
-        this.descricao = descricao;
+import java.util.List;
+
+public class Plano {
+    private Periodo periodo;
+    private List<Modalidade> modalidades;
+    private double valor;
+
+    public Plano(Periodo periodo, List<Modalidade> modalidades, double valor) {
+        super();
+        this.periodo = periodo;
+        this.modalidades = modalidades;
         this.valor = valor;
     }
-    
-    public String getDescricao() {
-        return descricao;
-    }
-    
-    public double getValor() {
-        return valor;
-    }
-    
-    @Override
-    public String toString() {
-        return descricao + " - R$ " + valor;
-    }
+
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Plano: ").append(periodo);
+		builder.append("\nModalidades: ");
+
+		if (modalidades != null && !modalidades.isEmpty()) {
+			for (int i = 0; i < modalidades.size(); i++) {
+				builder.append(modalidades.get(i));
+				if (i < modalidades.size() - 1) {
+					builder.append(", ");
+				}
+			}
+		} else {
+			builder.append("Nenhuma");
+		}
+
+		builder.append("\nValor: ").append(valor);
+		return builder.toString();
+	}
 }
 

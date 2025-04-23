@@ -66,7 +66,7 @@ public class MenuPersonal implements Menu {
                     System.out.println("Nome: " + aluno.getNome());
                     System.out.println("CPF: " + aluno.getCpf());
                     System.out.println("Data de Matrícula: " + aluno.getDataMatricula());
-                    System.out.println("Plano: " + aluno.getPlano().getDescricao());
+                    System.out.println("Plano: " + aluno.getPlano());
                     System.out.println("--------------------");
                 }
             }
