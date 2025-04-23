@@ -62,7 +62,7 @@ public class MenuAluno implements Menu {
             System.out.println("\n==== Personal Contratado ====");
             System.out.println("Nome: " + aluno.getPersonalContratado().getNome());
             System.out.println("Especialidade: " + aluno.getPersonalContratado().getEspecialidade());
-            System.out.println("CREF: " + aluno.getPersonalContratado().getCref());
+            System.out.println("CREF: " + aluno.getPersonalContratado().getCREF());
         } else {
             System.out.println("\nVocê ainda não contratou um personal trainer.");
         }
