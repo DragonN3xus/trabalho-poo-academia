@@ -3,20 +3,30 @@ package org.serratec.academia.especial;
 import java.util.List;
 
 public class Plano {
+	private int id, contador = 1;
     private Periodo periodo;
     private List<Modalidade> modalidades;
     private double valor;
 
     public Plano(Periodo periodo, List<Modalidade> modalidades, double valor) {
         super();
+        this.id = contador++;
         this.periodo = periodo;
         this.modalidades = modalidades;
         this.valor = valor;
     }
-
-	public Periodo getPeriodo() {
-		return periodo;
+    
+    public int getId() {
+    	return id;
+    }
+    
+    public void setId(int id) {
+		this.id = id;
 	}
+    
+    public Periodo getPeriodo() {
+    	return periodo;
+    }
 
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
@@ -28,6 +38,14 @@ public class Plano {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+	
+	public List<Modalidade> getModalidades() {
+		return modalidades;
+	}
+	
+	public void setModalidades(List<Modalidade> modalidades) {
+		this.modalidades = modalidades;
 	}
 
 	@Override

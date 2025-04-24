@@ -20,9 +20,6 @@ public class MenuPersonal implements Menu {
 
     @Override
     public void exibirMenu(Pessoa pessoa) {
-        pessoas.add(pessoa);
-        Personal personal = (Personal) pessoa;
-        
         int opcao;
         do {
             System.out.println("\n# ===== # Menu de Personais # ===== #");

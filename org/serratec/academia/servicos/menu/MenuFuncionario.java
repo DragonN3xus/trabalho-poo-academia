@@ -11,6 +11,7 @@ import org.serratec.academia.especial.Modalidade;
 import org.serratec.academia.especial.Periodo;
 import org.serratec.academia.especial.Plano;
 import org.serratec.academia.modelo.Aluno;
+import org.serratec.academia.modelo.Banco;
 import org.serratec.academia.modelo.Funcionario;
 import org.serratec.academia.modelo.Personal;
 import org.serratec.academia.modelo.Pessoa;
@@ -18,11 +19,9 @@ import org.serratec.academia.modelo.Pessoa;
 public class MenuFuncionario implements Menu {
 	Scanner sc = new Scanner(System.in);
 	private static List<Pessoa> pessoas = new ArrayList<>();
-	private static List<Plano> planos = new ArrayList<>();
 
 	@Override
 	public void exibirMenu(Pessoa pessoa) {
-		pessoas.add(pessoa);
 		Funcionario funcionario = (Funcionario) pessoa;
 
 		int opcao;
@@ -77,12 +76,16 @@ public class MenuFuncionario implements Menu {
 		double valorTotal = 0;
 		DecimalFormat deci = new DecimalFormat("0.00");
 
-		for (Pessoa p : pessoas) {
-			if (p instanceof Aluno) {
-				Aluno aluno = (Aluno) p;
-				valorTotal += aluno.getPlano().getValor();
-			}
-		}
+		for (Aluno aluno : Banco.alunos) {
+	        int idPlano = aluno.getidPlano();
+
+	        for (Plano plano : Banco.planos) {
+	            if (plano.getId() == idPlano) {
+	                valorTotal += plano.getValor();
+	                break; // plano encontrado, pode sair do loop
+	            }
+	        }
+	    }
 		System.out.println("O Total para se receber nesse mês é: R$" + deci.format(valorTotal));
 	}
 
@@ -111,7 +114,7 @@ public class MenuFuncionario implements Menu {
 		String espec = sc.nextLine();
 		System.out.print("Informe a CREF do Personal: ");
 		String cref = sc.nextLine();
-		pessoas.add(new Personal(nome, cpf, senha, espec, cref));
+		Banco.personais.add(new Personal(nome, cpf, senha, espec, cref));
 		System.out.println("Personal " + nome + " cadastrado(a) com sucesso!");
 	}
 
@@ -171,7 +174,8 @@ public class MenuFuncionario implements Menu {
 		System.out.print("Informe o valor do plano: ");
 		double valor = sc.nextDouble();
 		Plano plano = new Plano(periodo, modalidades, valor);
-		planos.add(plano);
+		Banco.planos.add(plano);
+		System.out.println("Plano cadastrado com sucesso! Id do plano: " + plano.getId());
 	}
 
 	private void cadastrarAluno() {
@@ -197,7 +201,7 @@ public class MenuFuncionario implements Menu {
 		System.out.print("Informe a senha do Aluno: ");
 		String senha = sc.nextLine();
 
-		Personal personalEncontrado = null;
+		String personalEncontrado = null;
 
 		do {
 			System.out.print("Informe o nome do Personal desejado: ");
@@ -205,7 +209,7 @@ public class MenuFuncionario implements Menu {
 
 			for (Pessoa p : pessoas) {
 				if (p instanceof Personal && p.getNome().equalsIgnoreCase(nomePersonal)) {
-					personalEncontrado = (Personal) p;
+					personalEncontrado = p.getNome();
 					break;
 				}
 			}
@@ -214,8 +218,15 @@ public class MenuFuncionario implements Menu {
 				System.out.println("Personal não encontrado. Tente novamente.");
 			}
 		} while (personalEncontrado == null);
-		Plano anual = new Plano(Periodo.ANUAL, List.of(Modalidade.MUSCULACAO), 4000);
-		pessoas.add(new Aluno(nome, cpf, senha, dataMatricula, anual, personalEncontrado));
+		
+		System.out.println("Escolha o ID do plano desejado:");
+		for (Plano plano : Banco.planos) {
+		    System.out.println("ID: " + plano.getId() + " - Modalidades: " + plano.getModalidades() + " - Valor: R$" + plano.getValor());
+		}
+		int idPlanoEscolhido = sc.nextInt();
+		sc.nextLine();
+		
+		Banco.alunos.add(new Aluno(nome, cpf, senha, dataMatricula, idPlanoEscolhido, personalEncontrado));
 		System.out.println("Aluno " + nome + " cadastrado(a) com sucesso!");
 	}
 
@@ -224,6 +235,11 @@ public class MenuFuncionario implements Menu {
 	}
 
 	private static boolean validarCPF(String cpf) {
+        if (cpf == null || cpf.isEmpty()) {
+			System.out.println("CPF inválido! Um CPF não pode ser nulo ou vazio.");
+			return false;
+		}
+        
 		if (cpf.length() != 11) {
 			System.out.println("CPF inválido! Um CPF deve conter 11 dígitos.");
 			return false;
