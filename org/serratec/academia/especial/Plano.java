@@ -1,72 +1,30 @@
 package org.serratec.academia.especial;
 
-import java.util.List;
-
-public class Plano {
-	private int id, contador = 1;
-    private Periodo periodo;
-    private List<Modalidade> modalidades;
-    private double valor;
-
-    public Plano(Periodo periodo, List<Modalidade> modalidades, double valor) {
-        super();
-        this.id = contador++;
-        this.periodo = periodo;
-        this.modalidades = modalidades;
+public enum Plano {
+    MENSAL_TOTAL("Plano Mensal", 190.0),
+    TRIMESTRAL_TOTAL("Plano Trimestral", 520.0),
+    SEMESTRAL_TOTAL("Plano Semestral", 950.0),
+    ANUAL_TOTAL("Plano Anual", 1750.0);
+	  
+    private final String descricao;
+    private final double valor;
+    
+    Plano(String descricao, double valor) {
+        this.descricao = descricao;
         this.valor = valor;
     }
     
-    public int getId() {
-    	return id;
+    public String getDescricao() {
+        return descricao;
     }
     
-    public void setId(int id) {
-		this.id = id;
-	}
-    
-    public Periodo getPeriodo() {
-    	return periodo;
+    public double getValor() {
+        return valor;
     }
-
-	public void setPeriodo(Periodo periodo) {
-		this.periodo = periodo;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-	
-	public List<Modalidade> getModalidades() {
-		return modalidades;
-	}
-	
-	public void setModalidades(List<Modalidade> modalidades) {
-		this.modalidades = modalidades;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Plano: ").append(periodo);
-		builder.append("\nModalidades: ");
-
-		if (modalidades != null && !modalidades.isEmpty()) {
-			for (int i = 0; i < modalidades.size(); i++) {
-				builder.append(modalidades.get(i));
-				if (i < modalidades.size() - 1) {
-					builder.append(", ");
-				}
-			}
-		} else {
-			builder.append("Nenhuma");
-		}
-
-		builder.append("\nValor: ").append(valor);
-		return builder.toString();
-	}
+    
+    @Override
+    public String toString() {
+        return descricao + " - R$ " + valor;
+    }
 }
 
