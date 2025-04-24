@@ -1,31 +1,30 @@
 package org.serratec.academia.modelo;
 
 import java.time.LocalDate;
-import org.serratec.academia.especial.Plano;
 
 public class Aluno extends Pessoa {
     private LocalDate dataMatricula;
-    private Plano plano;
-    private Personal personalContratado;
+    private int idPlano;
+    private String personalContratado;
     
     
-    public Aluno(String nome, String cpf, String senha, LocalDate dataMatricula, Plano plano, Personal personalContratado) {
+    public Aluno(String nome, String cpf, String senha, LocalDate dataMatricula, int idPlano, String personalContratado) {
 		super(nome, cpf, senha);
 		this.dataMatricula = dataMatricula;
-		this.plano = plano;
+		this.idPlano = idPlano;
 		this.personalContratado = personalContratado;
 	}
     
-	public Plano getPlano() {
-		return plano;
+	public int getidPlano() {
+		return idPlano;
 	}
-	public void setPlano(Plano plano) {
-		this.plano = plano;
+	public void setid_Plano(int idPlano) {
+		this.idPlano = idPlano;
 	}
-	public Personal getPersonalContratado() {
+	public String getPersonalContratado() {
 		return personalContratado;
 	}
-	public void setPersonalContratado(Personal personalContratado) {
+	public void setPersonalContratado(String personalContratado) {
 		this.personalContratado = personalContratado;
 	}
 	public LocalDate getDataMatricula() {
