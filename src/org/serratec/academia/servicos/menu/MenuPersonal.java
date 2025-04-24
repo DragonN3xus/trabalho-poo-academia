@@ -59,7 +59,7 @@ public class MenuPersonal implements Menu {
     private void visualizarAlunos(Personal personal) {
         boolean temAlunos = false;
         
-        System.out.println("\n# ==== # Seus Alunos # ==== #");
+        System.out.println("\n# ===== # Seus Alunos # ===== #");
         
         for (Aluno a : Banco.alunos) {
                 if (a.getPersonalContratado() != null && 

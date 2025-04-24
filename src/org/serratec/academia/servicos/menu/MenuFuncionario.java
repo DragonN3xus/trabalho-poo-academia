@@ -28,10 +28,12 @@ import org.serratec.academia.modelo.Pessoa;
 public class MenuFuncionario implements Menu {
 	Scanner sc = new Scanner(System.in);
 	Path path = Paths.get(".\\src\\dados_academia.csv");
+	Pessoa p1 = null;
 
 	@Override
 	public void exibirMenu(Pessoa pessoa) {
 		Funcionario funcionario = (Funcionario) pessoa;
+		p1 = pessoa;
 
 		int opcao;
 		do {
@@ -82,7 +84,9 @@ public class MenuFuncionario implements Menu {
 	}
 
 	private void emitirRelatorio() {
-		System.err.println("TBD");
+		MenuRelatorio menuRelatorio = new MenuRelatorio();
+		menuRelatorio.exibirMenu(p1);
+		
 	}
 	
 	private void gerarValorTotal() {
@@ -308,8 +312,7 @@ public class MenuFuncionario implements Menu {
 			String modalidadesStr = modalidades.stream().map(m -> m.name().toLowerCase())
 					.collect(Collectors.joining(";"));
 
-			writer.write(
-					"plano," + id + "," + periodo.name().toLowerCase() + "," + modalidadesStr + "," + valor + "\n");
+			writer.write("plano," + id + "," + periodo.name().toLowerCase() + "," + modalidadesStr + "," + valor + "\n");
 			System.out.println("Plano adicionado ao arquivo CSV com sucesso!");
 		} catch (IOException e) {
 			System.err.println("Erro ao adicionar plano ao arquivo CSV: " + e.getMessage());
