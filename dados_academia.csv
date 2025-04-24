@@ -1,0 +1,100 @@
+plano,1,trimestral,boxe;jiujitsu;musculacao;funcional,318.75
+plano,2,anual,musculacao;funcional;jiujitsu;boxe,1839.6
+plano,3,trimestral,pilates,947.78
+plano,4,mensal,musculacao,740.12
+plano,5,anual,funcional,1215.47
+plano,6,anual,funcional;pilates;jiujitsu;boxe,1715.19
+plano,7,trimestral,musculacao;funcional;pilates,1176.35
+plano,8,trimestral,jiujitsu;boxe;pilates,1719.38
+plano,9,mensal,jiujitsu;funcional,1223.32
+plano,10,semestral,jiujitsu;pilates;musculacao,1827.96
+personal,Thiago Costa,81510794547,senha548,jiujitsu,18081
+personal,Fernanda Teixeira,29753880027,senha313,Alongamento,36567
+personal,Marcelo Lima,94815152775,senha637,Alongamento,06889
+personal,Pedro Lima,56113948342,senha708,musculacao,13188
+personal,Vanessa Rocha,20205400420,senha246,Crossfit,91113
+personal,Lucas Lima,12379507166,senha537,Yoga,99923
+personal,Natália Fernandes,13344848595,senha811,jiujitsu,36315
+personal,Juliana Lima,81374121758,senha476,funcional,39103
+personal,Renata Silva,83484857874,senha883,jiujitsu,37288
+personal,Thiago Rocha,98113352232,senha390,Crossfit,13713
+personal,Renata Fernandes,56110858262,senha575,boxe,03479
+personal,Isabela Fernandes,80973623421,senha872,Crossfit,10757
+personal,Camila Costa,77284452528,senha561,boxe,35571
+personal,Felipe Costa,22172108336,senha294,Alongamento,33049
+personal,Daniel Souza,18116672127,senha299,Crossfit,05107
+aluno,Larissa Fernandes,15846248534,senha496,2024-03-17,8,Natália Fernandes
+aluno,Larissa Silva,09521767133,senha857,2024-03-28,4,Lucas Lima
+aluno,Bruno Barros,26324111759,senha679,2024-02-20,3,Isabela Fernandes
+aluno,Maria Lima,56285714532,senha756,2024-02-21,4,Natália Fernandes
+aluno,Carlos Barros,11930360359,senha789,2024-01-26,2,Isabela Fernandes
+aluno,Natália Silva,83458108588,senha619,2024-01-20,3,Isabela Fernandes
+aluno,Pedro Barros,74889535367,senha920,2024-03-07,4,Daniel Souza
+aluno,Camila Rocha,24714992740,senha661,2024-02-24,2,Fernanda Teixeira
+aluno,Marcelo Teixeira,28490448210,senha209,2024-02-23,10,Vanessa Rocha
+aluno,Isabela Lima,86060298948,senha745,2024-02-18,8,Daniel Souza
+aluno,Lucas Oliveira,65504289687,senha236,2024-03-27,5,Renata Fernandes
+aluno,Juliana Fernandes,94229968474,senha588,2024-03-13,4,Camila Costa
+aluno,Ana Fernandes,75494072487,senha769,2024-02-25,10,Felipe Costa
+aluno,Ana Silva,90755778907,senha590,2024-02-28,4,Thiago Rocha
+aluno,Lucas Souza,78085805835,senha550,2024-01-24,5,Pedro Lima
+aluno,Lucas Fernandes,58444922043,senha715,2024-03-08,4,Thiago Rocha
+aluno,Natália Souza,10021690904,senha814,2024-01-09,1,Marcelo Lima
+aluno,Sabrina Lima,31688140606,senha480,2024-03-27,1,Natália Fernandes
+aluno,Ana Rocha,07361507427,senha679,2024-03-16,7,Felipe Costa
+aluno,Juliana Souza,18717235436,senha573,2024-01-31,4,Fernanda Teixeira
+aluno,Renata Costa,42134605501,senha506,2024-01-31,8,Fernanda Teixeira
+aluno,Marcelo Silva,77010162272,senha374,2024-03-03,1,Juliana Lima
+aluno,João Silva,58182561833,senha942,2024-01-27,10,Renata Silva
+aluno,Gabriel Teixeira,03888448579,senha773,2024-01-05,9,Felipe Costa
+aluno,Renata Teixeira,31957641011,senha260,2024-03-05,5,Renata Fernandes
+aluno,João Barros,20765962234,senha685,2024-02-22,3,Marcelo Lima
+aluno,Daniel Oliveira,10614774132,senha326,2024-03-21,3,Daniel Souza
+aluno,Maria Barros,08182408262,senha508,2024-03-01,2,Lucas Lima
+aluno,João Fernandes,48739291312,senha543,2024-02-29,2,Isabela Fernandes
+aluno,Mateus Rocha,24357358884,senha761,2024-01-30,5,Felipe Costa
+avaliacao,Larissa Fernandes,2024-04-16,Natália Fernandes,Avaliação de progresso 1.
+avaliacao,Larissa Fernandes,2024-05-16,Natália Fernandes,Avaliação de progresso 2.
+avaliacao,Larissa Silva,2024-04-27,Lucas Lima,Avaliação de progresso 1.
+avaliacao,Bruno Barros,2024-03-21,Isabela Fernandes,Avaliação de progresso 1.
+avaliacao,Bruno Barros,2024-04-20,Isabela Fernandes,Avaliação de progresso 2.
+avaliacao,Maria Lima,2024-03-22,Natália Fernandes,Avaliação de progresso 1.
+avaliacao,Carlos Barros,2024-02-25,Isabela Fernandes,Avaliação de progresso 1.
+avaliacao,Natália Silva,2024-02-19,Isabela Fernandes,Avaliação de progresso 1.
+avaliacao,Pedro Barros,2024-04-06,Daniel Souza,Avaliação de progresso 1.
+avaliacao,Camila Rocha,2024-03-25,Fernanda Teixeira,Avaliação de progresso 1.
+avaliacao,Marcelo Teixeira,2024-03-24,Vanessa Rocha,Avaliação de progresso 1.
+avaliacao,Isabela Lima,2024-03-19,Daniel Souza,Avaliação de progresso 1.
+avaliacao,Lucas Oliveira,2024-04-26,Renata Fernandes,Avaliação de progresso 1.
+avaliacao,Lucas Oliveira,2024-05-26,Renata Fernandes,Avaliação de progresso 2.
+avaliacao,Juliana Fernandes,2024-04-12,Camila Costa,Avaliação de progresso 1.
+avaliacao,Ana Fernandes,2024-03-26,Felipe Costa,Avaliação de progresso 1.
+avaliacao,Ana Fernandes,2024-04-25,Felipe Costa,Avaliação de progresso 2.
+avaliacao,Ana Silva,2024-03-29,Thiago Rocha,Avaliação de progresso 1.
+avaliacao,Ana Silva,2024-04-28,Thiago Rocha,Avaliação de progresso 2.
+avaliacao,Lucas Souza,2024-02-23,Pedro Lima,Avaliação de progresso 1.
+avaliacao,Lucas Fernandes,2024-04-07,Thiago Rocha,Avaliação de progresso 1.
+avaliacao,Natália Souza,2024-02-08,Marcelo Lima,Avaliação de progresso 1.
+avaliacao,Natália Souza,2024-03-09,Marcelo Lima,Avaliação de progresso 2.
+avaliacao,Sabrina Lima,2024-04-26,Natália Fernandes,Avaliação de progresso 1.
+avaliacao,Ana Rocha,2024-04-15,Felipe Costa,Avaliação de progresso 1.
+avaliacao,Ana Rocha,2024-05-15,Felipe Costa,Avaliação de progresso 2.
+avaliacao,Juliana Souza,2024-03-01,Fernanda Teixeira,Avaliação de progresso 1.
+avaliacao,Juliana Souza,2024-03-31,Fernanda Teixeira,Avaliação de progresso 2.
+avaliacao,Renata Costa,2024-03-01,Fernanda Teixeira,Avaliação de progresso 1.
+avaliacao,Marcelo Silva,2024-04-02,Juliana Lima,Avaliação de progresso 1.
+avaliacao,Marcelo Silva,2024-05-02,Juliana Lima,Avaliação de progresso 2.
+avaliacao,João Silva,2024-02-26,Renata Silva,Avaliação de progresso 1.
+avaliacao,João Silva,2024-03-27,Renata Silva,Avaliação de progresso 2.
+avaliacao,Gabriel Teixeira,2024-02-04,Felipe Costa,Avaliação de progresso 1.
+avaliacao,Gabriel Teixeira,2024-03-05,Felipe Costa,Avaliação de progresso 2.
+avaliacao,Renata Teixeira,2024-04-04,Renata Fernandes,Avaliação de progresso 1.
+avaliacao,Renata Teixeira,2024-05-04,Renata Fernandes,Avaliação de progresso 2.
+avaliacao,João Barros,2024-03-23,Marcelo Lima,Avaliação de progresso 1.
+avaliacao,João Barros,2024-04-22,Marcelo Lima,Avaliação de progresso 2.
+avaliacao,Daniel Oliveira,2024-04-20,Daniel Souza,Avaliação de progresso 1.
+avaliacao,Maria Barros,2024-03-31,Lucas Lima,Avaliação de progresso 1.
+avaliacao,Maria Barros,2024-04-30,Lucas Lima,Avaliação de progresso 2.
+avaliacao,João Fernandes,2024-03-30,Isabela Fernandes,Avaliação de progresso 1.
+avaliacao,João Fernandes,2024-04-29,Isabela Fernandes,Avaliação de progresso 2.
+avaliacao,Mateus Rocha,2024-02-29,Felipe Costa,Avaliação de progresso 1.

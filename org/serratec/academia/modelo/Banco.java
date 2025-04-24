@@ -29,17 +29,26 @@ public class Banco {
 				String tipo = campos[0].trim().toLowerCase();
 				// PLANO
 				if(tipo.equals("plano")) {
-					Periodo periodo = Periodo.valueOf(campos[1].trim().toUpperCase());
+					int id = Integer.parseInt(campos[1].trim());
+					Periodo periodo = Periodo.valueOf(campos[2].trim().toUpperCase());
 					List<Modalidade> modalidades = new ArrayList<>();
-					String[] mod = campos[2].trim().split(";");
+					String[] mod = campos[3].trim().split(";");
 					for (String modalidade : mod) {
 						modalidades.add(Modalidade.valueOf(modalidade.trim().toUpperCase()));
 					}
-					Double valor = Double.parseDouble(campos[3].trim());
-					Plano plano = new Plano(periodo, modalidades, valor);
+					Double valor = Double.parseDouble(campos[4].trim());
+					Plano plano = new Plano(id, periodo, modalidades, valor);
 					planos.add(plano);
 				} 
-				
+				// AVALIACAO
+				if(tipo.equals("avaliacao")) {
+					String aluno = campos[1].trim();
+					LocalDate data = LocalDate.parse(campos[2].trim());
+					String personal = campos[3].trim();
+					String descricao = campos[4].trim();
+					Avaliacao avaliacao = new Avaliacao(aluno, data, personal, descricao);
+					avaliacoes.add(avaliacao);
+				}
 				// PESSOA
 				String nome = campos[1].trim();
 				String cpf = campos[2].trim();

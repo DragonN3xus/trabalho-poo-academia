@@ -3,14 +3,14 @@ package org.serratec.academia.especial;
 import java.util.List;
 
 public class Plano {
-	private int id, contador = 1;
+	private int id;
     private Periodo periodo;
     private List<Modalidade> modalidades;
     private double valor;
 
-    public Plano(Periodo periodo, List<Modalidade> modalidades, double valor) {
+    public Plano(int id, Periodo periodo, List<Modalidade> modalidades, double valor) {
         super();
-        this.id = contador++;
+        this.id = id;
         this.periodo = periodo;
         this.modalidades = modalidades;
         this.valor = valor;
@@ -51,7 +51,8 @@ public class Plano {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Plano: ").append(periodo);
+		builder.append("ID: ").append(id);
+		builder.append("\nPlano: ").append(periodo);
 		builder.append("\nModalidades: ");
 
 		if (modalidades != null && !modalidades.isEmpty()) {

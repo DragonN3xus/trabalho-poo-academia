@@ -15,7 +15,7 @@ public class Aluno extends Pessoa {
 		this.personalContratado = personalContratado;
 	}
     
-	public int getidPlano() {
+	public int getIdPlano() {
 		return idPlano;
 	}
 	public void setid_Plano(int idPlano) {

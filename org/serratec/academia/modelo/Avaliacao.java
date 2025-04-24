@@ -3,12 +3,12 @@ package org.serratec.academia.modelo;
 import java.time.LocalDate;
 
 public class Avaliacao {
-    private Aluno aluno;
+    private String aluno;
     private LocalDate data;
-    private Personal personal;
+    private String personal;
     private String descricao;
 
-    public Avaliacao(Aluno aluno, LocalDate data, Personal personal, String descricao) {
+    public Avaliacao(String aluno, LocalDate data, String personal, String descricao) {
         super();
         this.aluno = aluno;
         this.data = data;
@@ -16,7 +16,7 @@ public class Avaliacao {
         this.descricao = descricao;
     }
 
-    public Aluno getAluno() {
+    public String getAluno() {
         return aluno;
     }
 
@@ -24,13 +24,23 @@ public class Avaliacao {
         return data;
     }
 
-    public Personal getPersonal() {
+    public String getString() {
         return personal;
     }
 
     public String getDescricao() {
         return descricao;
     }
+
+	public String getPersonal() {
+		return personal;
+	}
+
+	@Override
+	public String toString() {
+		return "Avaliacao [aluno=" + aluno + ", data=" + data + ", personal=" + personal + ", descricao=" + descricao
+				+ "]";
+	}
 
 }
 

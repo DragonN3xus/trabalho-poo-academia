@@ -3,23 +3,23 @@ package org.serratec.academia.servicos.menu;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.serratec.academia.modelo.Aluno;
 import org.serratec.academia.modelo.Avaliacao;
+import org.serratec.academia.modelo.Banco;
 import org.serratec.academia.modelo.Personal;
 import org.serratec.academia.modelo.Pessoa;
 
 public class MenuPersonal implements Menu {
     private Scanner sc = new Scanner(System.in);
-    private static List<Pessoa> pessoas = new ArrayList<>();
-    private static List<Avaliacao> avaliacoes = new ArrayList<>();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Override
     public void exibirMenu(Pessoa pessoa) {
+    	Personal personal = (Personal) pessoa;
         int opcao;
         do {
             System.out.println("\n# ===== # Menu de Personais # ===== #");
@@ -54,20 +54,16 @@ public class MenuPersonal implements Menu {
         
         System.out.println("\n==== Seus Alunos ====");
         
-        for (Pessoa p : pessoas) {
-            if (p instanceof Aluno) {
-                Aluno aluno = (Aluno) p;
-                if (aluno.getPersonalContratado() != null && 
-                    aluno.getPersonalContratado().equals(personal)) {
+        for (Aluno a : Banco.alunos) {
+                if (a.getPersonalContratado() != null && 
+                    a.getPersonalContratado().equals(personal.getNome())) {
                     temAlunos = true;
-                    System.out.println("Nome: " + aluno.getNome());
-                    System.out.println("CPF: " + aluno.getCpf());
-                    System.out.println("Data de Matrícula: " + aluno.getDataMatricula());
-                    System.out.println("Plano: " + aluno.getPlano());
+                    System.out.println("Nome: " + a.getNome());
+                    System.out.println("CPF: " + a.getCpf());
+                    System.out.println("Data de Matrícula: " + a.getDataMatricula());
                     System.out.println("--------------------");
                 }
             }
-        }
         
         if (!temAlunos) {
             System.out.println("Você ainda não possui alunos cadastrados.");
@@ -75,51 +71,47 @@ public class MenuPersonal implements Menu {
     }
     
     private void registrarAvaliacao(Personal personal) {
-        List<Aluno> alunosPersonal = new ArrayList<>();
+        int count = 0;
+        Map<Integer, Aluno> mapaAlunos = new HashMap<>();
+
+        System.out.println("\n==== Selecione um aluno para avaliação ====");
         
-        for (Pessoa p : pessoas) {
-            if (p instanceof Aluno) {
-                Aluno aluno = (Aluno) p;
-                if (aluno.getPersonalContratado() != null && 
-                    aluno.getPersonalContratado().equals(personal)) {
-                    alunosPersonal.add(aluno);
-                }
+        for (Aluno aluno : Banco.alunos) {
+            if (aluno.getPersonalContratado().equalsIgnoreCase(personal.getNome())) {
+                count++;
+                System.out.println(count + ". " + aluno.getNome());
+                mapaAlunos.put(count, aluno);
             }
         }
-        
-        if (alunosPersonal.isEmpty()) {
+
+        if (count == 0) {
             System.out.println("Você não possui alunos para realizar avaliações.");
             return;
         }
-        
-        System.out.println("\n==== Selecione um aluno para avaliação ====");
-        for (int i = 0; i < alunosPersonal.size(); i++) {
-            System.out.println((i + 1) + ". " + alunosPersonal.get(i).getNome());
-        }
-        
+
         System.out.print("Escolha o número do aluno (0 para cancelar): ");
         int escolha = sc.nextInt();
+        sc.nextLine();
+
+        if (escolha == 0) return;
+
+        Aluno alunoSelecionado = mapaAlunos.get(escolha);
+       
         
-        if (escolha <= 0 || escolha > alunosPersonal.size()) {
-            if (escolha != 0) {
-                System.out.println("Opção inválida!");
-            }
+        if (alunoSelecionado == null) {
+            System.out.println("Opção inválida!");
             return;
         }
         
-        Aluno alunoSelecionado = alunosPersonal.get(escolha - 1);
-        
+        String nomeAluno = alunoSelecionado.getNome();
         LocalDate dataAvaliacao = LocalDate.now();
         boolean dataValida = false;
-        
-        sc.nextLine(); 
         
         while (!dataValida) {
             System.out.print("Data da avaliação (formato dd/MM/yyyy, ou ENTER para hoje): ");
             String dataInput = sc.nextLine().trim();
-            
+
             if (dataInput.isEmpty()) {
-                dataAvaliacao = LocalDate.now();
                 dataValida = true;
             } else {
                 try {
@@ -130,13 +122,15 @@ public class MenuPersonal implements Menu {
                 }
             }
         }
-        
+
         System.out.print("Descrição da avaliação: ");
         String descricao = sc.nextLine();
+
+        Avaliacao avaliacao = new Avaliacao(nomeAluno, dataAvaliacao, personal.getNome(), descricao
+        );
         
-        Avaliacao avaliacao = new Avaliacao(alunoSelecionado, dataAvaliacao, personal, descricao);
-        avaliacoes.add(avaliacao);
-        
+        Banco.avaliacoes.add(avaliacao);
+
         System.out.println("Avaliação registrada com sucesso para " + alunoSelecionado.getNome() + "!");
     }
     
@@ -145,12 +139,12 @@ public class MenuPersonal implements Menu {
         
         System.out.println("\n==== Avaliações Realizadas ====");
         
-        for (Avaliacao avaliacao : avaliacoes) {
-            if (avaliacao.getPersonal().equals(personal)) {
+        for (Avaliacao av : Banco.avaliacoes) {
+            if (av.getPersonal().equals(personal.getNome())) {
                 temAvaliacao = true;
-                System.out.println("\nAluno: " + avaliacao.getAluno().getNome());
-                System.out.println("Data: " + avaliacao.getData());
-                System.out.println("Descrição: " + avaliacao.getDescricao());
+                System.out.println("\nAluno: " + av.getAluno());
+                System.out.println("Data: " + av.getData());
+                System.out.println("Descrição: " + av.getDescricao());
                 System.out.println("--------------------");
             }
         }
