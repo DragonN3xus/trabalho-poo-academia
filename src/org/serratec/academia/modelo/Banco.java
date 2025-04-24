@@ -75,11 +75,13 @@ public class Banco {
 					Personal personal = new Personal(nome, cpf, senha, especialidade, cref);
 					personais.add(personal);
 				}
+				
 			}
+			System.out.println("Banco de dados carregado com sucesso!");
 		} catch (IOException e) {
 			System.out.println("Erro ao ler o arquivo: " + e.getMessage());
 		}
-	    System.out.println("Banco de dados carregado com sucesso!");
+	   
 	}
 }
 

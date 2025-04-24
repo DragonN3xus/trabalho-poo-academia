@@ -1,23 +1,20 @@
 package org.serratec.academia.servicos.menu;
 
+import java.util.List;
 import java.util.Scanner;
 
+import org.serratec.academia.especial.Plano;
 import org.serratec.academia.modelo.Aluno;
 import org.serratec.academia.modelo.Avaliacao;
+import org.serratec.academia.modelo.Banco;
 import org.serratec.academia.modelo.Personal;
 import org.serratec.academia.modelo.Pessoa;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MenuAluno implements Menu {
     private Scanner sc = new Scanner(System.in);
-    private static List<Pessoa> pessoas = new ArrayList<>();
-    private static List<Avaliacao> avaliacoes = new ArrayList<>();
 
     @Override
     public void exibirMenu(Pessoa pessoa) {
-        pessoas.add(pessoa);
         Aluno aluno = (Aluno) pessoa;
         
         int opcao;
@@ -50,63 +47,75 @@ public class MenuAluno implements Menu {
     }
     
     private void visualizarDadosPessoais(Aluno aluno) {
-        System.out.println("\n==== Dados Pessoais ====");
+        System.out.println("\n# ===== # Dados Pessoais # ===== #");
         System.out.println("Nome: " + aluno.getNome());
         System.out.println("CPF: " + aluno.getCpf());
         System.out.println("Data de Matrícula: " + aluno.getDataMatricula());
-        System.out.println("\n==== Plano Contratado ====");
-        System.out.println("Plano: " + aluno.getPlano().getDescricao());
-        System.out.println("Valor: R$ " + aluno.getPlano().getValor());
-        
-        if (aluno.getPersonalContratado() != null) {
-            System.out.println("\n==== Personal Contratado ====");
-            System.out.println("Nome: " + aluno.getPersonalContratado().getNome());
-            System.out.println("Especialidade: " + aluno.getPersonalContratado().getEspecialidade());
-            System.out.println("CREF: " + aluno.getPersonalContratado().getCREF());
+
+        System.out.println("\n# ===== # Plano Contratado # ===== #");
+        Plano plano = null;
+        for (Plano p : Banco.planos) {
+            if (p.getId() == aluno.getIdPlano()) {
+                plano = p;
+                break;
+            }
+        }
+
+        if (plano != null) {
+            System.out.println("Plano: " + plano.getModalidades());
+            System.out.println("Valor: R$ " + plano.getValor());
+        } else {
+            System.out.println("Nenhum plano contratado.");
+        }
+
+        if (aluno.getPersonalContratado() != null && !aluno.getPersonalContratado().isEmpty()) {
+            System.out.println("\n# ===== # Personal Contratado # ===== #");
+            for (Personal p : Banco.personais) {
+                if (p.getNome().equalsIgnoreCase(aluno.getPersonalContratado())) {
+                    System.out.println("Nome: " + p.getNome());
+                    System.out.println("Especialidade: " + p.getEspecialidade());
+                    System.out.println("CREF: " + p.getCref());
+                    return;
+                }
+            }
+            System.out.println("Personal não encontrado.");
         } else {
             System.out.println("\nVocê ainda não contratou um personal trainer.");
         }
     }
     
     private void contratarPersonal(Aluno aluno) {
-        if (aluno.getPersonalContratado() != null) {
-            System.out.println("Você já possui um personal trainer contratado: " + 
-                               aluno.getPersonalContratado().getNome());
+        if (aluno.getPersonalContratado() != null && !aluno.getPersonalContratado().isEmpty()) {
+            System.out.println("Você já possui um personal trainer contratado: " + aluno.getPersonalContratado());
             System.out.print("Deseja trocar? (S/N): ");
             sc.nextLine();
             String resposta = sc.nextLine().toUpperCase();
-            
+
             if (!resposta.equals("S")) {
                 return;
             }
         }
-        
-        List<Personal> personais = new ArrayList<>();
-        System.out.println("\n==== Personais Disponíveis ====");
-        int i = 1;
-        
-        for (Pessoa p : pessoas) {
-            if (p instanceof Personal) {
-                Personal personal = (Personal) p;
-                personais.add(personal);
-                System.out.println(i + ". " + personal.getNome() + " - Especialidade: " + 
-                                   personal.getEspecialidade());
-                i++;
-            }
-        }
-        
+
+        List<Personal> personais = Banco.personais;
         if (personais.isEmpty()) {
             System.out.println("Não há personais cadastrados no sistema.");
             return;
         }
-        
+
+        System.out.println("\n# ===== # Personais Disponíveis # ===== #");
+        for (int i = 0; i < personais.size(); i++) {
+            Personal p = personais.get(i);
+            System.out.printf("%d. %s - Especialidade: %s\n", i + 1, p.getNome(), p.getEspecialidade());
+        }
+
         System.out.print("Escolha o número do personal desejado (0 para cancelar): ");
         int escolha = sc.nextInt();
-        
+        sc.nextLine();
+
         if (escolha > 0 && escolha <= personais.size()) {
-            aluno.setPersonalContratado(personais.get(escolha - 1));
-            System.out.println("Personal " + personais.get(escolha - 1).getNome() + 
-                               " contratado com sucesso!");
+            Personal escolhido = personais.get(escolha - 1);
+            aluno.setPersonalContratado(escolhido.getNome());
+            System.out.println("Personal " + escolhido.getNome() + " contratado com sucesso!");
         } else if (escolha != 0) {
             System.out.println("Opção inválida!");
         }
@@ -115,13 +124,13 @@ public class MenuAluno implements Menu {
     private void visualizarAvaliacoes(Aluno aluno) {
         boolean temAvaliacao = false;
         
-        System.out.println("\n==== Suas Avaliações Físicas ====");
+        System.out.println("\n# ===== # Suas Avaliações Físicas # ===== #");
         
-        for (Avaliacao avaliacao : avaliacoes) {
-            if (avaliacao.getAluno().equals(aluno)) {
+        for (Avaliacao avaliacao : Banco.avaliacoes) {
+            if (avaliacao.getAluno().equals(aluno.getNome())) {
                 temAvaliacao = true;
                 System.out.println("\nData: " + avaliacao.getData());
-                System.out.println("Personal: " + avaliacao.getPersonal().getNome());
+                System.out.println("Personal: " + avaliacao.getPersonal());
                 System.out.println("Descrição: " + avaliacao.getDescricao());
             }
         }
