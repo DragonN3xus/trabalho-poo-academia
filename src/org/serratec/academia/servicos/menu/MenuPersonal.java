@@ -28,6 +28,7 @@ public class MenuPersonal implements Menu {
     public void exibirMenu(Pessoa pessoa) {
     	Personal personal = (Personal) pessoa;
         int opcao;
+        System.out.println("Olá " + personal.getNome() + "!");
         do {
             System.out.println("\n# ===== # Menu de Personais # ===== #");
             System.out.println("1. Visualizar alunos");
@@ -61,13 +62,13 @@ public class MenuPersonal implements Menu {
         
         System.out.println("\n# ===== # Seus Alunos # ===== #");
         
-        for (Aluno a : Banco.alunos) {
-                if (a.getPersonalContratado() != null && 
-                    a.getPersonalContratado().equals(personal.getNome())) {
+        for (Aluno al : Banco.alunos) {
+                if (al.getPersonalContratado() != null && 
+                    al.getPersonalContratado().equals(personal.getNome())) {
                     temAlunos = true;
-                    System.out.println("Nome: " + a.getNome());
-                    System.out.println("CPF: " + a.getCpf());
-                    System.out.println("Data de Matrícula: " + a.getDataMatricula());
+                    System.out.println("Nome: " + al.getNome());
+                    System.out.println("CPF: " + al.getCpf());
+                    System.out.println("Data de Matrícula: " + al.getDataMatricula());
                     System.out.println("# ===== ===== ===== ===== #");
                 }
             }
@@ -81,13 +82,13 @@ public class MenuPersonal implements Menu {
         int count = 0;
         Map<Integer, Aluno> mapaAlunos = new HashMap<>();
 
-        System.out.println("\n==== Selecione um aluno para avaliação ====");
+        System.out.println("\n# ===== # Selecione um aluno para avaliação # ===== #");
         
-        for (Aluno aluno : Banco.alunos) {
-            if (aluno.getPersonalContratado().equalsIgnoreCase(personal.getNome())) {
+        for (Aluno al : Banco.alunos) {
+            if (al.getPersonalContratado().equalsIgnoreCase(personal.getNome())) {
                 count++;
-                System.out.println(count + ". " + aluno.getNome());
-                mapaAlunos.put(count, aluno);
+                System.out.println(count + ". " + al.getNome());
+                mapaAlunos.put(count, al);
             }
         }
 

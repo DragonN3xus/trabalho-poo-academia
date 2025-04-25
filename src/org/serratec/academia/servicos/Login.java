@@ -21,14 +21,24 @@ public class Login {
 	Pessoa usuarioLogado = null;
 
 	public void realizarLogin() {
+		// Populando as ArrayLists com os dados do arquivo CSV
 		Banco.cadastrar(path);
-		int tent = 0;
 
 
-		// Loop do tipo "Enquanto" privando o usuario de seguir enquanto não prover um CPF e Senha adequados: 
+
+		String bemvindo = """
+		        ╔══════════════════════════════════════════════════════════╗
+		        ║     Bem-vindo ao Gerenciamento da Academia Serratec!     ║
+		        ╠══════════════════════════════════════════════════════════╣
+		        ║                                                          ║
+		        ║ Por favor, insira seus dados de acesso para continuar:   ║
+		        ║                                                          ║
+		        ╚══════════════════════════════════════════════════════════╝
+		        """;
+			
+		System.out.println(bemvindo);
+		
 		while (!acessoConcedido){
-			tent++;
-			System.out.println(tent + "° Tentativa");
 			System.out.print("Informe seu CPF: ");
 			cpf = sc.nextLine();
 			System.out.print("Informe sua Senha: ");

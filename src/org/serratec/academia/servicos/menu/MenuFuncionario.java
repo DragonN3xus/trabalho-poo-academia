@@ -36,6 +36,7 @@ public class MenuFuncionario implements Menu {
 		p1 = pessoa;
 
 		int opcao;
+	    System.out.println("Olá " + funcionario.getNome() + "!");
 		do {
 			System.out.println("\n# ===== # Menu de Funcionarios # ===== #");
 			System.out.println("1. Emitir Relatorios\n2. Ver Valor total a receber no Mês");
@@ -93,12 +94,12 @@ public class MenuFuncionario implements Menu {
 		double valorTotal = 0;
 		DecimalFormat deci = new DecimalFormat("0.00");
 
-		for (Aluno aluno : Banco.alunos) {
-	        int idPlano = aluno.getIdPlano();
+		for (Aluno al : Banco.alunos) {
+	        int idPlano = al.getIdPlano();
 	        
-	        for (Plano plano : Banco.planos) {
-	            if (plano.getId() == idPlano) {
-	                valorTotal += plano.getValor();
+	        for (Plano pl : Banco.planos) {
+	            if (pl.getId() == idPlano) {
+	                valorTotal += pl.getValor();
 	                break;
 	            }
 	        }
@@ -134,8 +135,8 @@ public class MenuFuncionario implements Menu {
 		System.out.println("# ===== ===== ===== ===== ===== ===== #");
 		System.out.printf("%-30s %-30s%n", "Nome:", "Especialidade:");
 
-		for (Personal p : Banco.personais) {
-			System.out.printf("%-30s %-30s%n", p.getNome(), p.getEspecialidade());
+		for (Personal per : Banco.personais) {
+			System.out.printf("%-30s %-30s%n", per.getNome(), per.getEspecialidade());
 		}
 
 		String personalEncontrado = null;
@@ -144,9 +145,9 @@ public class MenuFuncionario implements Menu {
 			System.out.print("\nInforme o nome do Personal desejado: ");
 			String nomePersonal = sc.nextLine();
 
-			for (Personal p : Banco.personais) {
-				if (p.getNome().equalsIgnoreCase(nomePersonal)) {
-					personalEncontrado = p.getNome();
+			for (Personal per : Banco.personais) {
+				if (per.getNome().equalsIgnoreCase(nomePersonal)) {
+					personalEncontrado = per.getNome();
 					break;
 				}
 			}
@@ -160,11 +161,11 @@ public class MenuFuncionario implements Menu {
 		System.out.println("# ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== #");
 		System.out.printf("%-5s %-15s %-40s %-10s%n", "ID:", "Periodicidade:", "Modalidades:", "Valor:");
 
-		for (Plano plano : Banco.planos) {
-			String modalidadesStr = plano.getModalidades().stream().map(Enum::name).collect(Collectors.joining(", "));
+		for (Plano pl : Banco.planos) {
+			String modalidadesStr = pl.getModalidades().stream().map(Enum::name).collect(Collectors.joining(", "));
 
-			System.out.printf("%-5d %-15s %-40s R$%-10.2f%n", plano.getId(), plano.getPeriodo().name(), modalidadesStr,
-					plano.getValor());
+			System.out.printf("%-5d %-15s %-40s R$%-10.2f%n", pl.getId(), pl.getPeriodo().name(), modalidadesStr,
+					pl.getValor());
 		}
 
 		int idPlanoEscolhido = sc.nextInt();

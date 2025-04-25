@@ -18,6 +18,7 @@ public class MenuAluno implements Menu {
         Aluno aluno = (Aluno) pessoa;
         
         int opcao;
+        System.out.println("Olá " + aluno.getNome() + "!");
         do {
             System.out.println("\n# ===== # Menu de Alunos # ===== #");
             System.out.println("1. Visualizar dados pessoais e plano contratado");
@@ -54,9 +55,9 @@ public class MenuAluno implements Menu {
 
         System.out.println("\n# ===== # Plano Contratado # ===== #");
         Plano plano = null;
-        for (Plano p : Banco.planos) {
-            if (p.getId() == aluno.getIdPlano()) {
-                plano = p;
+        for (Plano pl : Banco.planos) {
+            if (pl.getId() == aluno.getIdPlano()) {
+                plano = pl;
                 break;
             }
         }
@@ -70,11 +71,11 @@ public class MenuAluno implements Menu {
 
         if (aluno.getPersonalContratado() != null && !aluno.getPersonalContratado().isEmpty()) {
             System.out.println("\n# ===== # Personal Contratado # ===== #");
-            for (Personal p : Banco.personais) {
-                if (p.getNome().equalsIgnoreCase(aluno.getPersonalContratado())) {
-                    System.out.println("Nome: " + p.getNome());
-                    System.out.println("Especialidade: " + p.getEspecialidade());
-                    System.out.println("CREF: " + p.getCref());
+            for (Personal per : Banco.personais) {
+                if (per.getNome().equalsIgnoreCase(aluno.getPersonalContratado())) {
+                    System.out.println("Nome: " + per.getNome());
+                    System.out.println("Especialidade: " + per.getEspecialidade());
+                    System.out.println("CREF: " + per.getCref());
                     return;
                 }
             }
@@ -102,36 +103,47 @@ public class MenuAluno implements Menu {
             return;
         }
 
-        System.out.println("\n# ===== # Personais Disponíveis # ===== #");
-        for (int i = 0; i < personais.size(); i++) {
-            Personal p = personais.get(i);
-            System.out.printf("%d. %s - Especialidade: %s\n", i + 1, p.getNome(), p.getEspecialidade());
-        }
+		System.out.println("\nPersonais disponíveis:");
+		System.out.println("# ===== ===== ===== ===== ===== ===== #");
+		System.out.printf("%-30s %-30s%n", "Nome:", "Especialidade:");
 
-        System.out.print("Escolha o número do personal desejado (0 para cancelar): ");
-        int escolha = sc.nextInt();
-        sc.nextLine();
+		for (Personal per : Banco.personais) {
+			System.out.printf("%-30s %-30s%n", per.getNome(), per.getEspecialidade());
+		}
 
-        if (escolha > 0 && escolha <= personais.size()) {
-            Personal escolhido = personais.get(escolha - 1);
-            aluno.setPersonalContratado(escolhido.getNome());
-            System.out.println("Personal " + escolhido.getNome() + " contratado com sucesso!");
-        } else if (escolha != 0) {
-            System.out.println("Opção inválida!");
-        }
+		String escolhido = null;
+
+		do {
+			System.out.print("\nInforme o nome do Personal desejado: ");
+			String nomePersonal = sc.nextLine();
+
+			for (Personal per : Banco.personais) {
+				if (per.getNome().equalsIgnoreCase(nomePersonal)) {
+					escolhido = per.getNome();
+					aluno.setPersonalContratado(per.getNome());
+					System.out.println("Personal " + per.getNome() + " contratado com sucesso!");
+					break;
+				}
+			}
+
+			if (escolhido == null) {
+				System.out.println("Personal não encontrado. Tente novamente.");
+			}
+		} while (escolhido == null);
     }
+
     
     private void visualizarAvaliacoes(Aluno aluno) {
         boolean temAvaliacao = false;
         
         System.out.println("\n# ===== # Suas Avaliações Físicas # ===== #");
         
-        for (Avaliacao avaliacao : Banco.avaliacoes) {
-            if (avaliacao.getAluno().equals(aluno.getNome())) {
+        for (Avaliacao av : Banco.avaliacoes) {
+            if (av.getAluno().equals(aluno.getNome())) {
                 temAvaliacao = true;
-                System.out.println("\nData: " + avaliacao.getData());
-                System.out.println("Personal: " + avaliacao.getPersonal());
-                System.out.println("Descrição: " + avaliacao.getDescricao());
+                System.out.println("\nData: " + av.getData());
+                System.out.println("Personal: " + av.getPersonal());
+                System.out.println("Descrição: " + av.getDescricao());
             }
         }
         

@@ -77,7 +77,7 @@ public class Banco {
 				}
 				
 			}
-			System.out.println("Banco de dados carregado com sucesso!");
+			System.out.println("Banco de dados carregado com sucesso! Inicializando o sistema...");
 		} catch (IOException e) {
 			System.out.println("Erro ao ler o arquivo: " + e.getMessage());
 		}

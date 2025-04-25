@@ -1,18 +1,19 @@
 package org.serratec.academia.servicos.menu;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Scanner;
-import java.text.DecimalFormat;
-import java.util.stream.Collectors;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import org.serratec.academia.especial.GerarRelatorios;
 import org.serratec.academia.especial.Modalidade;
 import org.serratec.academia.especial.Plano;
 import org.serratec.academia.modelo.Aluno;
@@ -21,7 +22,7 @@ import org.serratec.academia.modelo.Funcionario;
 import org.serratec.academia.modelo.Personal;
 import org.serratec.academia.modelo.Pessoa;
 
-public class MenuRelatorio implements Menu {
+public class MenuRelatorio implements Menu, GerarRelatorios {
 	Scanner sc = new Scanner(System.in);
 	Path path = Paths.get(".\\src\\dados_academia.csv");
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -63,8 +64,9 @@ public class MenuRelatorio implements Menu {
 		} while (opcao != 5);
 
 	}
-
-	private void relatorioPlanos() {
+	
+	@Override
+	public void relatorioPlanos() {
 		System.out.println("\n# ===== # Relatório de Planos # ===== #");
 		System.out.printf("%-5s %-15s %-40s %-10s%n", "ID:", "Periodicidade:", "Modalidades:", "Valor:");
 		System.out.println("# ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== #");
@@ -87,7 +89,6 @@ public class MenuRelatorio implements Menu {
 			System.out.printf("%-30s %-15s %-15s %-15d %-30s%n", aluno.getNome(), aluno.getCpf(),
 					aluno.getDataMatricula().format(DATE_FORMATTER), aluno.getIdPlano(), aluno.getPersonalContratado());
 		}
-		System.out.println("# ===== ===== ===== ===== ===== ===== #");
 
 		System.out.println("\n# ===== # Relatório de Funcionários # ===== #");
 		System.out.printf("%-30s %-15s %-15s%n", "Nome:", "CPF:", "Cargo:");
@@ -95,7 +96,6 @@ public class MenuRelatorio implements Menu {
 			System.out.printf("%-30s %-15s %-15s%n", funcionario.getNome(), funcionario.getCpf(),
 					funcionario.getCargo());
 		}
-		System.out.println("# ===== ===== ===== ===== ===== ===== #");
 
 		System.out.println("\n# ===== # Relatório de Personal Trainers # ===== #");
 		System.out.printf("%-30s %-15s %-20s %-15s%n", "Nome:", "CPF:", "Especialidade:", "CREF:");
@@ -103,7 +103,6 @@ public class MenuRelatorio implements Menu {
 			System.out.printf("%-30s %-15s %-20s %-15s%n", personal.getNome(), personal.getCpf(),
 					personal.getEspecialidade(), personal.getCref());
 		}
-		System.out.println("# ===== ===== ===== ===== ===== ===== #");
 	}
 
 	public void relatorioAvaliacao() {
@@ -144,17 +143,16 @@ public class MenuRelatorio implements Menu {
 			return;
 		}
 
-		System.out.println("\n# ===== ===== ===== RELATÓRIO DE AVALIAÇÕES DE " + dataInicial.format(DATE_FORMATTER)
+		System.out.println("\n# ===== ===== ===== # RELATÓRIO DE AVALIAÇÕES DE " + dataInicial.format(DATE_FORMATTER)
 				+ " ATÉ " + dataFim.format(DATE_FORMATTER) + " # ===== ===== ==== #");
 
 		System.out.printf("%-30s %-15s %-30s %-40s%n", "Aluno", "Data", "Personal", "Descrição");
-		System.out.println("# ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== #");
 		LocalDate dataInicio = dataInicial;
 		Banco.avaliacoes.stream().filter(a -> a.getData().isAfter(dataInicio) && a.getData().isBefore(dataFim))
 				.forEach(a -> System.out.printf("%-30s %-15s %-30s %-40s%n", a.getAluno(),
 						a.getData().format(DATE_FORMATTER), a.getPersonal(), a.getDescricao()));
 	}
-
+	
 	public void arquivosRelatorios() {
 	    System.out.println("\n# ===== # Geração de Arquivos de Relatórios # ===== #");
 	    System.out.println("1. Planos\n2. Pessoas\n3. Avaliações\n4. Todos\n5. Voltar");
@@ -193,7 +191,7 @@ public class MenuRelatorio implements Menu {
 	private void gerarArquivoPlanos(String data) throws IOException {
 	    String nomeArquivo = "relatorios/relatorio_planos_" + data + ".txt";
 	    try (PrintWriter gravador = new PrintWriter(new FileWriter(nomeArquivo))) {
-	        gravador.println("======== RELATÓRIO DE PLANOS ========");
+	        gravador.println("# ===== # RELATÓRIO DE PLANOS # ===== #");
 	        gravador.println("Data de geração: " + data + "\n");
 
 	        for (Plano plano : Banco.planos) {
@@ -204,7 +202,6 @@ public class MenuRelatorio implements Menu {
 	                .collect(Collectors.joining(", "));
 	            gravador.println("Modalidades: " + modalidades);
 	            gravador.printf("Valor: R$ %.2f%n", plano.getValor());
-	            gravador.println("----------------------------------");
 	        }
 	        System.out.println("Relatório de planos gerado com sucesso: " + nomeArquivo);
 	    }
@@ -213,7 +210,7 @@ public class MenuRelatorio implements Menu {
 	private void gerarArquivoPessoas(String data) throws IOException {
 	    String nomeArquivo = "relatorios/relatorio_pessoas_" + data + ".txt";
 	    try (PrintWriter gravador = new PrintWriter(new FileWriter(nomeArquivo))) {
-	        gravador.println("======== RELATÓRIO DE PESSOAS ========");
+	        gravador.println("# ===== # RELATÓRIO DE PESSOAS # ===== #");
 	        gravador.println("Data de geração: " + data + "\n");
 
 	        escreverPessoas("ALUNOS", Banco.alunos, gravador);
@@ -238,7 +235,7 @@ public class MenuRelatorio implements Menu {
 	            gravador.printf("Especialidade: %s%nCREF: %s%n", per.getEspecialidade(), per.getCref());
 	        }
 
-	        gravador.println("----------------------------------");
+	        gravador.println("# ===== ===== ===== ===== ===== ===== ===== #");
 	    }
 	}
 
@@ -249,7 +246,7 @@ public class MenuRelatorio implements Menu {
 
 	    String nomeArquivo = "relatorios/relatorio_avaliacoes_" + data + ".txt";
 	    try (PrintWriter gravador = new PrintWriter(new FileWriter(nomeArquivo))) {
-	        gravador.println("======== RELATÓRIO DE AVALIAÇÕES ========");
+	        gravador.println(" # ===== # RELATÓRIO DE AVALIAÇÕES # ===== #");
 	        gravador.println("Data de geração: " + data);
 	        gravador.printf("Período: de %s até %s%n%n",
 	                dataInicial.format(DATE_FORMATTER),
@@ -263,7 +260,7 @@ public class MenuRelatorio implements Menu {
 	                        av.getData().format(DATE_FORMATTER),
 	                        av.getPersonal(),
 	                        av.getDescricao());
-	                gravador.println("----------------------------------");
+	                gravador.println("# ===== ===== ===== ===== ===== ===== ===== #");
 	                encontrou = true;
 	            }
 	        }
@@ -288,7 +285,7 @@ public class MenuRelatorio implements Menu {
 	}
 
 	private LocalDate obterDataFinal(LocalDate dataInicial) {
-	    System.out.print("Digite o período (mensal, trimestral, semestral, anual): ");
+	    System.out.print("Digite o período ( Mensal, Trimestral, Semestral ou Anual ): ");
 	    return switch (sc.nextLine().trim().toLowerCase()) {
 	        case "mensal" -> dataInicial.plusMonths(1);
 	        case "trimestral" -> dataInicial.plusMonths(3);
